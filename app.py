@@ -161,3 +161,29 @@ with tab1:
                         st.session_state.completed_stack.push(completed_task)
                         st.success(f"✅ Completed: {completed_task['name']}")
                         st.rerun()
+
+with tab2:
+    st.subheader("Completed Tasks Stack")
+    st.markdown("Most recently completed tasks appear at the top (LIFO - Last In, First Out).")
+    
+    if st.session_state.completed_stack.isEmpty():
+        st.info("📭 No completed tasks yet. Complete some tasks to see them here!")
+    else:
+        all_completed = st.session_state.completed_stack.getAllTasks()
+        
+        for idx, task in enumerate(reversed(all_completed)):
+            col1, col2 = st.columns([4, 1])
+            
+            with col1:
+                st.markdown(f"""
+                <div class="priority-{task['priority']}" style="opacity: 0.8;">
+                    <h4 style="margin: 0; text-decoration: line-through;">{task['name']}</h4>
+                    <p style="margin: 5px 0 0 0; font-size: 0.9em;">
+                        {get_priority_badge(task['priority'])} | 
+                        <span style="opacity: 0.8;">
+                            📅 Created: {task['timestamp']}<br>
+                            ✓ Completed: {task.get('completed_at', 'N/A')}
+                        </span>
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
