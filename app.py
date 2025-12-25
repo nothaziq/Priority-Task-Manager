@@ -80,3 +80,7 @@ def get_priority_badge(priority):
     label, color = colors.get(priority, ("Unknown", "#666666"))
     return f'<span style="background-color: {color}; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold;">{label}</span>'
 
+st.title("📝 Task Manager")
+st.markdown("**DSA Project**: Priority Queue & Stack Implementation")
+st.markdown("---")
+
