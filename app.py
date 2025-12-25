@@ -121,3 +121,8 @@ with st.sidebar:
                 st.rerun()
             else:
                 st.error("❌ Please enter a task name!")
+            
+    st.markdown("---")
+    st.subheader("📊 Statistics")
+    st.metric("Pending Tasks", st.session_state.pending_queue.size())
+    st.metric("Completed Tasks", st.session_state.completed_stack.size())
