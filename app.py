@@ -152,3 +152,12 @@ with tab1:
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
+            
+            with col2:
+                if st.button("✓ Complete", key=f"complete_{task['id']}", use_container_width=True):
+                    completed_task = st.session_state.pending_queue.extract_min()
+                    if completed_task:
+                        completed_task['completed_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        st.session_state.completed_stack.push(completed_task)
+                        st.success(f"✅ Completed: {completed_task['name']}")
+                        st.rerun()
