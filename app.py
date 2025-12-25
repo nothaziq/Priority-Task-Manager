@@ -126,3 +126,29 @@ with st.sidebar:
     st.subheader("📊 Statistics")
     st.metric("Pending Tasks", st.session_state.pending_queue.size())
     st.metric("Completed Tasks", st.session_state.completed_stack.size())
+
+tab1, tab2 = st.tabs(["📋 Pending Tasks", "✅ Completed Tasks"])
+
+with tab1:
+    st.subheader("Pending Tasks Queue")
+    st.markdown("Tasks are prioritized from highest (1) to lowest (5) priority.")
+    
+    if st.session_state.pending_queue.isEmpty():
+        st.info("🎉 No pending tasks! Add a task from the sidebar to get started.")
+    else:
+        all_tasks = st.session_state.pending_queue.getAllTasks()
+        sorted_tasks = sorted(all_tasks, key=lambda x: (x['priority'], x['timestamp']))
+        
+        for idx, task in enumerate(sorted_tasks):
+            col1, col2 = st.columns([4, 1])
+            
+            with col1:
+                st.markdown(f"""
+                <div class="priority-{task['priority']}">
+                    <h4 style="margin: 0;">{task['name']}</h4>
+                    <p style="margin: 5px 0 0 0; font-size: 0.9em;">
+                        {get_priority_badge(task['priority'])} | 
+                        <span style="opacity: 0.8;">📅 {task['timestamp']}</span>
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
