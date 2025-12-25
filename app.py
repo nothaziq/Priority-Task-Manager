@@ -83,3 +83,41 @@ def get_priority_badge(priority):
 st.title("📝 Task Manager")
 st.markdown("**DSA Project**: Priority Queue & Stack Implementation")
 st.markdown("---")
+
+
+with st.sidebar:
+    st.header("➕ Add New Task")
+    st.markdown("Fill in the details below to add a new task:")
+    
+    with st.form(key="task_form", clear_on_submit=True):
+        task_name = st.text_input("Task Name", placeholder="Enter task description...")
+        priority = st.selectbox(
+            "Priority Level",
+            options=[1, 2, 3, 4, 5],
+            format_func=lambda x: {
+                1: "🔴 1 - Critical",
+                2: "🟠 2 - High",
+                3: "🟡 3 - Medium",
+                4: "🟢 4 - Low",
+                5: "🔵 5 - Very Low"
+            }[x]
+        )
+        
+        submit_button = st.form_submit_button("Add Task", use_container_width=True)
+        
+        if submit_button:
+            if task_name.strip():
+                task = {
+                    'id': st.session_state.task_counter,
+                    'name': task_name.strip(),
+                    'priority': priority,
+                    'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                }
+                
+                st.session_state.pending_queue.insert(task)
+                st.session_state.task_counter += 1
+                
+                st.success(f"✅ Task added successfully!")
+                st.rerun()
+            else:
+                st.error("❌ Please enter a task name!")
