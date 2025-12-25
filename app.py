@@ -197,3 +197,16 @@ with tab2:
                         st.session_state.pending_queue.insert(undone_task)
                         st.info(f"↶ Task moved back to pending: {undone_task['name']}")
                         st.rerun()
+
+st.markdown("""
+<div class="footer">
+    <p style="margin: 0;">
+        <strong>Task Manager - DSA Project</strong> | 
+        Built with Streamlit 🎈 | 
+        Custom Priority Queue (Min-Heap) & Stack Implementation | 
+        © 2024
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
