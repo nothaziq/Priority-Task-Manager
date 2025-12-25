@@ -187,3 +187,13 @@ with tab2:
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
+
+            with col2:
+                if st.button("↶ Undo", key=f"undo_{task['id']}", use_container_width=True):
+                    undone_task = st.session_state.completed_stack.pop()
+                    if undone_task:
+                        if 'completed_at' in undone_task:
+                            del undone_task['completed_at']
+                        st.session_state.pending_queue.insert(undone_task)
+                        st.info(f"↶ Task moved back to pending: {undone_task['name']}")
+                        st.rerun()
