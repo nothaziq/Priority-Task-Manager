@@ -83,4 +83,3 @@ def get_priority_badge(priority):
 st.title("📝 Task Manager")
 st.markdown("**DSA Project**: Priority Queue & Stack Implementation")
 st.markdown("---")
-
