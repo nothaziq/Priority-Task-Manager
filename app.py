@@ -58,3 +58,11 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+def initialize_session_state():
+    if 'pending_queue' not in st.session_state:
+        st.session_state.pending_queue = PriorityQueue()
+    if 'completed_stack' not in st.session_state:
+        st.session_state.completed_stack = Stack()
+    if 'task_counter' not in st.session_state:
+        st.session_state.task_counter = 0
