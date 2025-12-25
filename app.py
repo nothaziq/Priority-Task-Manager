@@ -66,3 +66,17 @@ def initialize_session_state():
         st.session_state.completed_stack = Stack()
     if 'task_counter' not in st.session_state:
         st.session_state.task_counter = 0
+
+initialize_session_state()
+
+def get_priority_badge(priority):
+    colors = {
+        1: ("🔴 Critical", "#ff4444"),
+        2: ("🟠 High", "#ff8800"),
+        3: ("🟡 Medium", "#ffbb33"),
+        4: ("🟢 Low", "#00C851"),
+        5: ("🔵 Very Low", "#33b5e5")
+    }
+    label, color = colors.get(priority, ("Unknown", "#666666"))
+    return f'<span style="background-color: {color}; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold;">{label}</span>'
+
